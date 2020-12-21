@@ -21,11 +21,15 @@ var headRadius = headHeight / 3
 var handsWidth = W/25;
 var plexusY = groundY - headHeight * 2 /3;
 var handsY = groundY - headHeight - headRadius;
+// for the flying algorithm
+var squareMaxDistance = Math.pow(Math.min(W/2, handsY), 2);
 // width of pull rectangle viz
 var pullWidth = W/40;
 // The kite
-var kiteX = W/2;
-var kiteY = H/2;
+var kiteXorig = W/2;
+var kiteYorig = H/4;
+var kiteX = kiteXorig;
+var kiteY = kiteYorig;
 var kiteW = W/30;
 var kiteH = H/20;
 var kiteBodyFactor = 2/3;
@@ -95,6 +99,16 @@ function draw() {
         if (pullR < e) pullR = 0;
     }
     kiteDir += kiteSens * (pullR - pullL);
+    var squareDistance = Math.pow(W/2 - kiteX, 2) +
+                         Math.pow(handsY - kiteY, 2);
+    windFactor = 5 * (1 - squareDistance / squareMaxDistance);
+    kiteX += windFactor * Math.sin(kiteDir);
+    kiteY -= windFactor * Math.cos(kiteDir);
+    if (kiteY > handsY - max(kiteW, kiteH)) {
+        kiteX = kiteXorig;
+        kiteY = kiteYorig;
+        kiteDir = 0;
+    }
     // The kite
     fill(255, 255, 0);
     push();
