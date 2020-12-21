@@ -67,10 +67,6 @@ function setup() {
 }
 
 function draw() {
-    // redraw
-    fill(0, 0, 255);
-    strokeWeight(0);
-    rect(pullWidth, 0, W - 2*pullWidth, groundY - headHeight - headRadius);
     strokeWeight(1);
     // controls
     if (touches.length == 2) {
@@ -110,6 +106,9 @@ function draw() {
         }
         if (pullR < e) pullR = 0;
     }
+    if (!keyIsDown(UP_ARROW)) {
+        blueSky();
+    }
     // Kite moves
     kiteDir += kiteSens * (pullL - pullR);
     var squareDistance = Math.pow(W/2 - kiteX, 2) +
@@ -125,6 +124,7 @@ function draw() {
         kiteX = kiteXorig;
         kiteY = kiteYorig;
         kiteDir = 0;
+        blueSky();
     }
     // The kite
     fill(255, 255, 0);
@@ -150,6 +150,12 @@ function kite() {
     vertex(0,  kiteH / 2);
     vertex( kiteW, -kiteH/2+kiteBodyFactor*kiteH);
     endShape(CLOSE);
+}
+
+function blueSky() {
+    fill(0, 0, 255);
+    strokeWeight(0);
+    rect(pullWidth, 0, W - 2*pullWidth, groundY - headHeight - headRadius);
 }
 
 function fixDirFactor(x) {
