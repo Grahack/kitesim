@@ -10,8 +10,8 @@ if (window.location.hostname == '127.0.0.1') {
     W = 640;
     H = 480;
 } else {
-    W = 0.9 * windowWidth;
-    H = 0.9 * windowHeight;
+    W = 0.9 * window.screen.availWidth;
+    H = 0.9 * window.screen.availHeight;
 }
 var screenFactor = Math.max(W/640, H/480);
 var groundHeight = H/10;
