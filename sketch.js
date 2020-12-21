@@ -1,7 +1,10 @@
 // Screen size
 var W, H;
 // Pulling force, left and right
-var pullL, pullR;
+var pullL = 0;
+var pullR = 0;
+// width of pull rectangle viz
+var pullWidth = W/25;
 
 if (window.location.hostname == '127.0.0.1') {
     W = 640;
@@ -39,8 +42,21 @@ function setup() {
 
 function draw() {
     if (touches.length == 2) {
-        alert(touches[0] + ':' + touches[1]);
+        var x1 = touches[0].x;
+        var y1 = touches[0].y;
+        var x2 = touches[1].x;
+        var y2 = touches[1].y;
+        if (x1 < x2) {
+            pullL = y1/H;
+            pullR = y2/H;
+        } else {
+            pullL = y2/H;
+            pullR = y1/H;
+        }
     }
     if (keyIsDown(LEFT_ARROW))  alert("L");
     if (keyIsDown(RIGHT_ARROW)) alert("R");
+    fill(255, 255, 0);
+    rect(0, 0, pullWidth, (1-pullL)*H);
+    rect(W-pullWidth, 0, W, (1-pullR)*H);
 }
