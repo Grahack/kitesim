@@ -35,7 +35,8 @@ var kiteH = H/20;
 var kiteBodyFactor = 2/3;
 var kiteDir = 0;
 var kiteSens = 0.1;
-var windSpeed = 5;
+var windSpeed = 4;
+var kiteSpeed = 2;
 
 function setup() {
     createCanvas(W, H);
@@ -100,12 +101,16 @@ function draw() {
         if (pullR < e) pullR = 0;
     }
     // Kite moves
-    kiteDir += kiteSens * (pullR - pullL);
+    kiteDir += kiteSens * (pullL - pullR);
     var squareDistance = Math.pow(W/2 - kiteX, 2) +
                          Math.pow(handsY - kiteY, 2);
-    windFactor = windSpeed * (1 - squareDistance / squareMaxDistance);
-    kiteX += windFactor * Math.sin(kiteDir);
-    kiteY -= windFactor * Math.cos(kiteDir);
+    var posFactor = windSpeed * (1 - squareDistance / squareMaxDistance);
+    var angleFromKitePos = Math.atan((W/2 - kiteX)/(handsY - kiteY));
+    var relativeDir = kiteDir - angleFromKitePos;
+    var dirFactor = fixDirFactor(kiteSpeed * Math.abs(Math.sin(relativeDir/2)));
+    var finalFactor = Math.max(posFactor, Math.pow(dirFactor, 2));
+    kiteX -= finalFactor * Math.sin(kiteDir);
+    kiteY -= finalFactor * Math.cos(kiteDir);
     if (kiteY > handsY - max(kiteW, kiteH)) {  // CRASH !!!
         kiteX = kiteXorig;
         kiteY = kiteYorig;
@@ -115,7 +120,7 @@ function draw() {
     fill(255, 255, 0);
     push();
     translate(kiteX, kiteY);
-    rotate(kiteDir);
+    rotate(-kiteDir);
     kite();
     pop();
     // The pull viz rectangles
@@ -134,4 +139,8 @@ function kite() {
     vertex(0,  kiteH / 2);
     vertex( kiteW, -kiteH/2+kiteBodyFactor*kiteH);
     endShape(CLOSE);
+}
+
+function fixDirFactor(x) {
+    return Math.min(Math.pow(x, 3), x);
 }
