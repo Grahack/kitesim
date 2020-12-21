@@ -36,7 +36,7 @@ var kiteBodyFactor = 2/3;
 var kiteDir = 0;
 var kiteSens = 0.1;
 var windSpeed = 4;
-var kiteSpeed = 2;
+var kiteSpeed = 3;
 
 function setup() {
     createCanvas(W, H);
@@ -142,5 +142,5 @@ function kite() {
 }
 
 function fixDirFactor(x) {
-    return Math.min(Math.pow(x, 3), x);
+    return Math.min(Math.pow(x, 1.5), Math.pow(x, 0.7));
 }
