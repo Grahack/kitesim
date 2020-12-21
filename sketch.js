@@ -50,6 +50,12 @@ function setup() {
 }
 
 function draw() {
+    // redraw
+    fill(0, 0, 255);
+    strokeWeight(0);
+    rect(pullWidth, 0, W - 2*pullWidth, groundY - headHeight - headRadius);
+    strokeWeight(1);
+    // controls
     if (touches.length == 2) {
         var x1 = touches[0].x;
         var y1 = touches[0].y;
@@ -87,12 +93,27 @@ function draw() {
         }
         if (pullR < e) pullR = 0;
     }
-    strokeWeight(0);
+    // The kite
     fill(255, 255, 0);
+    push();
+    translate(kiteX, kiteY);
+    rotate(pullL);
+    kite();
+    pop();
+    // The pull viz rectangles
+    strokeWeight(0);
     rect(0, 0, pullWidth, pullL*groundY);
     rect(W-pullWidth, 0, pullWidth, pullR*groundY);
     fill(0, 0, 255);
     rect(0, pullL*groundY, pullWidth, (1-pullL)*groundY);
     rect(W-pullWidth, pullR*groundY, pullWidth, (1-pullR)*groundY);
     strokeWeight(1);
+}
+function kite() {
+    beginShape();
+    vertex(0, -kiteH / 2);
+    vertex(-kiteW, -kiteH/2+kiteBodyFactor*kiteH);
+    vertex(0,  kiteH / 2);
+    vertex( kiteW, -kiteH/2+kiteBodyFactor*kiteH);
+    endShape(CLOSE);
 }
