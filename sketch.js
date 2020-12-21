@@ -39,6 +39,15 @@ var kiteSens = 0.1;
 var windSpeed = 4 * screenFactor;
 var kiteSpeed = 3 * screenFactor;
 
+var elem = document.documentElement;
+if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+} else if (elem.webkitRequestFullscreen) { /* Safari */
+    elem.webkitRequestFullscreen();
+} else if (elem.msRequestFullscreen) { /* IE11 */
+    elem.msRequestFullscreen();
+}
+
 function setup() {
     createCanvas(W, H);
     // The sky
