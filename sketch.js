@@ -29,7 +29,8 @@ var kiteY = H/2;
 var kiteW = W/30;
 var kiteH = H/20;
 var kiteBodyFactor = 2/3;
-var kiteDir = Math.PI;
+var kiteDir = 0;
+var kiteSens = 0.1;
 
 function setup() {
     createCanvas(W, H);
@@ -93,11 +94,12 @@ function draw() {
         }
         if (pullR < e) pullR = 0;
     }
+    kiteDir += kiteSens * (pullR - pullL);
     // The kite
     fill(255, 255, 0);
     push();
     translate(kiteX, kiteY);
-    rotate(pullL);
+    rotate(kiteDir);
     kite();
     pop();
     // The pull viz rectangles
