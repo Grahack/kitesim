@@ -132,6 +132,7 @@ function draw() {
     rect(W-pullWidth, pullR*groundY, pullWidth, (1-pullR)*groundY);
     strokeWeight(1);
 }
+
 function kite() {
     beginShape();
     vertex(0, -kiteH / 2);
