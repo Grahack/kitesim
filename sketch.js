@@ -1,11 +1,5 @@
 // Screen size
 var W, H;
-// Pulling force, left and right
-var pullL = 0;
-var pullR = 0;
-// width of pull rectangle viz
-var pullWidth = W/25;
-
 if (window.location.hostname == '127.0.0.1') {
     W = 640;
     H = 480;
@@ -13,6 +7,16 @@ if (window.location.hostname == '127.0.0.1') {
     W = window.screen.availWidth;
     H = window.screen.availHeight;
 }
+var groundHeight = H/10;
+var groundY = H - groundHeight;
+
+// Pulling force, left and right
+var pullL = 0;
+var pullR = 0;
+var pullAction = 0.04;
+var pullRelease = 0.04;
+// width of pull rectangle viz
+var pullWidth = W/40;
 
 function setup() {
     createCanvas(W, H);
@@ -20,8 +24,6 @@ function setup() {
     background(0, 0, 255);
     // The ground
     fill(0, 255, 0);
-    var groundHeight = H/10;
-    var groundY = H - groundHeight;
     rect(0, groundY, W, groundHeight);
     // The kiter
     fill(255, 0, 0);
