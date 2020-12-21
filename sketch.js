@@ -7,6 +7,7 @@ if (window.location.hostname == '127.0.0.1') {
     W = window.screen.availWidth;
     H = window.screen.availHeight;
 }
+var screenFactor = Math.max(W/640, H/480);
 var groundHeight = H/10;
 var groundY = H - groundHeight;
 
@@ -35,8 +36,8 @@ var kiteH = H/20;
 var kiteBodyFactor = 2/3;
 var kiteDir = 0;
 var kiteSens = 0.1;
-var windSpeed = 4;
-var kiteSpeed = 3;
+var windSpeed = 4 * screenFactor;
+var kiteSpeed = 3 * screenFactor;
 
 function setup() {
     createCanvas(W, H);
