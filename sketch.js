@@ -98,13 +98,14 @@ function draw() {
         }
         if (pullR < e) pullR = 0;
     }
+    // Kite moves
     kiteDir += kiteSens * (pullR - pullL);
     var squareDistance = Math.pow(W/2 - kiteX, 2) +
                          Math.pow(handsY - kiteY, 2);
     windFactor = 5 * (1 - squareDistance / squareMaxDistance);
     kiteX += windFactor * Math.sin(kiteDir);
     kiteY -= windFactor * Math.cos(kiteDir);
-    if (kiteY > handsY - max(kiteW, kiteH)) {
+    if (kiteY > handsY - max(kiteW, kiteH)) {  // CRASH !!!
         kiteX = kiteXorig;
         kiteY = kiteYorig;
         kiteDir = 0;
