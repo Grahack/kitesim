@@ -15,8 +15,21 @@ var pullL = 0;
 var pullR = 0;
 var pullAction = 0.04;
 var pullRelease = 0.04;
+// The kiter
+var headHeight = H / 15;
+var headRadius = headHeight / 3
+var handsWidth = W/25;
+var plexusY = groundY - headHeight * 2 /3;
+var handsY = groundY - headHeight - headRadius;
 // width of pull rectangle viz
 var pullWidth = W/40;
+// The kite
+var kiteX = W/2;
+var kiteY = H/2;
+var kiteW = W/30;
+var kiteH = H/20;
+var kiteBodyFactor = 2/3;
+var kiteDir = Math.PI;
 
 function setup() {
     createCanvas(W, H);
@@ -28,16 +41,10 @@ function setup() {
     // The kiter
     fill(255, 0, 0);
     // The head
-    var headHeight = H / 15;
-    var headRadius = headHeight / 3
     circle(W / 2, groundY - headHeight, headRadius);
     // The arms
-    var handsWidth = W/25;
-    var plexusY = groundY - headHeight * 2 /3;
-    line(W / 2 - handsWidth, groundY - headHeight - headRadius,
-         W / 2, plexusY);
-    line(W / 2 + handsWidth, groundY - headHeight - headRadius,
-         W / 2, plexusY);
+    line(W / 2 - handsWidth, handsY, W / 2, plexusY);
+    line(W / 2 + handsWidth, handsY, W / 2, plexusY);
     // The body
     line(W / 2, groundY - headHeight + headRadius, W / 2, groundY);
 }
