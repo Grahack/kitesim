@@ -1,11 +1,17 @@
+var cnv;
+
+function centerCanvas() {
+    cnv.position((windowWidth - width) / 2, (windowHeight - height) / 2);
+}
+
 // Screen size
 var W, H;
 if (window.location.hostname == '127.0.0.1') {
     W = 640;
     H = 480;
 } else {
-    W = 0.9 * window.screen.availWidth;
-    H = 0.9 * window.screen.availHeight;
+    W = 0.9 * windowWidth;
+    H = 0.9 * windowHeight;
 }
 var screenFactor = Math.max(W/640, H/480);
 var groundHeight = H/10;
@@ -49,7 +55,8 @@ if (elem.requestFullscreen) {
 }
 
 function setup() {
-    createCanvas(W, H);
+    cnv = createCanvas(W, H);
+    centerCanvas();
     // The sky
     background(0, 0, 255);
     // The ground
@@ -160,4 +167,8 @@ function blueSky() {
 
 function fixDirFactor(x) {
     return Math.min(Math.pow(x, 1.5), Math.pow(x, 0.7));
+}
+
+function windowResized() {
+    centerCanvas();
 }
