@@ -35,6 +35,7 @@ var kiteH = H/20;
 var kiteBodyFactor = 2/3;
 var kiteDir = 0;
 var kiteSens = 0.1;
+var windSpeed = 5;
 
 function setup() {
     createCanvas(W, H);
@@ -102,7 +103,7 @@ function draw() {
     kiteDir += kiteSens * (pullR - pullL);
     var squareDistance = Math.pow(W/2 - kiteX, 2) +
                          Math.pow(handsY - kiteY, 2);
-    windFactor = 5 * (1 - squareDistance / squareMaxDistance);
+    windFactor = windSpeed * (1 - squareDistance / squareMaxDistance);
     kiteX += windFactor * Math.sin(kiteDir);
     kiteY -= windFactor * Math.cos(kiteDir);
     if (kiteY > handsY - max(kiteW, kiteH)) {  // CRASH !!!
